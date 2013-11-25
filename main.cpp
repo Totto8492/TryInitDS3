@@ -20,14 +20,22 @@ int main()
     using namespace std;
     using namespace totto8492;
 
-    cout << "This software uses libusb-win32." << endl;
+    cout << "This software uses libusb-win32.\n" << endl;
 
     usb_init();
     if(!usb_find_busses())
+    {
+        cout << "libusb device not found." << endl;
+        this_thread::sleep_for(chrono::milliseconds(3000));
         return USB_BUS_NOT_FOUND;
+    }
 
     if(!usb_find_devices())
+    {
+        cout << "libusb device not found." << endl;
+        this_thread::sleep_for(chrono::milliseconds(3000));
         return USB_DEVICE_NOT_FOUND;
+    }
 
     struct usb_bus *bus = usb_get_busses();
     while(bus)
